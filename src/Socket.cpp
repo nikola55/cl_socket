@@ -58,14 +58,14 @@ void Socket::_connect() {
     int res = -1;
     if(sockAddr->ipversion() == SockAddress::V4) {
         sockaddr_in addr_in;
-        addr_in.sin_port = sockAddr->port();
+        addr_in.sin_port = sockAddr->binport();
         addr_in.sin_family = AF_INET;
         addr_in.sin_addr.s_addr = *sockAddr->binaddr();
         res = connect(fd, (const sockaddr*)&addr_in, sizeof(addr_in));
     } else if (sockAddr->ipversion() == SockAddress::V6) {
         sockaddr_in6 addr_in6;
         addr_in6.sin6_family = AF_INET6;
-        addr_in6.sin6_port = sockAddr->port();
+        addr_in6.sin6_port = sockAddr->binport();
         addr_in6.sin6_flowinfo = 0;
         memcpy(addr_in6.sin6_addr.s6_addr, sockAddr->binaddr(), 16);
         addr_in6.sin6_scope_id = 0;

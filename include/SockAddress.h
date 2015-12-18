@@ -23,14 +23,23 @@ protected:
                             std::string &dest);
 
 public:
+
     SockAddress(AddressType type) ;
+
     SockAddress(AddressType type, const std::string &addrRep) ;
+
     virtual const uint16_t port() const = 0;
+
     virtual const std::string& ipaddress() const = 0;
+
+    virtual const uint16_t binport() const = 0;
+
     virtual const uint32_t* binaddr() const = 0;
+
     virtual AddressType ipversion() const {
         return type;
     }
+
     virtual ~SockAddress();
 };
 
@@ -52,6 +61,8 @@ public:
 
     const uint16_t port() const;
 
+    const uint16_t binport() const;
+
     const uint32_t* binaddr() const;
 
 };
@@ -70,11 +81,15 @@ public:
 
     Sock6Address operator=(const Sock6Address &o);
 
+    const std::string& ipaddress() const;
+
     const uint16_t port() const;
+
+    const uint16_t binport() const;
 
     const uint32_t * binaddr() const;
 
-    const std::string& ipaddress() const;
+
 
 };
 

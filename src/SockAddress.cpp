@@ -67,18 +67,22 @@ const std::string& Sock4Address::ipaddress() const {
 }
 
 const uint16_t Sock4Address::port() const {
-    return p;
+    return ntohs(p);
 }
 
 const uint32_t* Sock4Address::binaddr() const {
     return &addr;
 }
 
+const uint16_t Sock4Address::binport() const {
+    return p;
+}
+
 Sock6Address::Sock6Address(const uint32_t addr[4], uint16_t port) : SockAddress(SockAddress::V6) {
-    this->addr[0] = addr[0];
-    this->addr[1] = addr[1];
-    this->addr[2] = addr[2];
-    this->addr[3] = addr[3];
+    this->addr[0] = htonl(addr[0]);
+    this->addr[1] = htonl(addr[1]);
+    this->addr[2] = htonl(addr[2]);
+    this->addr[3] = htonl(addr[3]);
     this->p = htons(port);
 }
 
@@ -113,6 +117,10 @@ const uint16_t Sock6Address::port() const {
 
 const uint32_t * Sock6Address::binaddr() const {
     return addr;
+}
+
+const uint16_t Sock6Address::binport() const {
+    return p;
 }
 
 const std::string& Sock6Address::ipaddress() const {
